@@ -11,7 +11,8 @@ public interface Input {
         public int keyCode;
         public char keyChar;
 
-        public String toString() {
+        @Override
+		public String toString() {
             StringBuilder builder = new StringBuilder();
             if (type == KEY_DOWN)
                 builder.append("key down, ");
@@ -33,7 +34,8 @@ public interface Input {
         public int x, y;
         public int pointer;
 
-        public String toString() {
+        @Override
+		public String toString() {
             StringBuilder builder = new StringBuilder();
             if (type == TOUCH_DOWN)
                 builder.append("touch down, ");

@@ -4,7 +4,7 @@ public class Font {
     public final Texture texture;
     public final int glyphWidth;
     public final int glyphHeight;
-    public final TextureRegion[] glyphs = new TextureRegion[96];   
+    public final TextureRegion[] glyphs = new TextureRegion[64];   
     
     public Font(Texture texture, 
                 int offsetX, int offsetY,
@@ -14,7 +14,7 @@ public class Font {
         this.glyphHeight = glyphHeight;
         int x = offsetX;
         int y = offsetY;
-        for(int i = 0; i < 96; i++) {
+        for(int i = 0; i < 64; i++) {
             glyphs[i] = new TextureRegion(texture, x, y, glyphWidth, glyphHeight);
             x += glyphWidth;
             if(x == offsetX + glyphsPerRow * glyphWidth) {

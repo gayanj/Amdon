@@ -6,7 +6,6 @@ import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
-import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLScreen;
 import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Rectangle;
@@ -23,11 +22,12 @@ public class MainMenuScreen extends GLScreen {
 		super(game);
 		batcher = new SpriteBatcher(glGraphics, 100);
 		guiCam = new Camera2D(glGraphics, 960, 640);
-		start = new Rectangle(480 - 274, 100, 518, 306);
-		score = new Rectangle(480 - 274, 100 + 20, 518, 306);
+		start = new Rectangle(480 - 259, 200 + 45, 518, 90);
+		score = new Rectangle(480 - 259, 200 - 45, 518, 90);
 		touchPoint = new Vector2();
 	}
 
+	@Override
 	public void update(float deltaTime) {
 		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
 		game.getInput().getKeyEvents();
@@ -58,10 +58,14 @@ public class MainMenuScreen extends GLScreen {
 		guiCam.setViewportAndMatrices();
 
 		gl.glEnable(GL10.GL_TEXTURE_2D);
-
+		
 		batcher.beginBatch(Assets.textureMap);
-		batcher.drawSprite(0, 0, 960, 640, Assets.background);
-		batcher.drawSprite(480, 320 , 518, 306, Assets.mainMenu);
+		batcher.drawSprite(480, 320, 960, 640, Assets.background);
+		
+		gl.glEnable(GL10.GL_BLEND);
+        gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		//batcher.drawSprite(480, 80, 960, 160, Assets.background);
+		batcher.drawSprite(480, 200 + 90, 518, 306, Assets.mainMenu);
 
 		batcher.endBatch();
 		gl.glDisable(GL10.GL_BLEND);

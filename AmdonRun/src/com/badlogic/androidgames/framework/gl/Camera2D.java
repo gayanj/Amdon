@@ -35,8 +35,8 @@ public class Camera2D {
     }
     
     public void touchToWorld(Vector2 touch) {
-        touch.x = (touch.x / (float) glGraphics.getWidth()) * frustumWidth * zoom;
-        touch.y = (1 - touch.y / (float) glGraphics.getHeight()) * frustumHeight * zoom;
+        touch.x = (touch.x / glGraphics.getWidth()) * frustumWidth * zoom;
+        touch.y = (1 - touch.y / glGraphics.getHeight()) * frustumHeight * zoom;
         touch.add(position).sub(frustumWidth * zoom / 2, frustumHeight * zoom / 2);
     }
 }

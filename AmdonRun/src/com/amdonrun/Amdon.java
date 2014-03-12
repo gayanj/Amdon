@@ -13,6 +13,7 @@ public class Amdon extends GLGame {
 		return new MainMenuScreen(this);
 	}
 
+	@Override
 	public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 		super.onSurfaceCreated(gl, config);
 		if (firstTimeCreate) {
@@ -24,6 +25,7 @@ public class Amdon extends GLGame {
 		}
 	}
 
+	@Override
 	public void onPause() {
 		super.onPause();
 	}

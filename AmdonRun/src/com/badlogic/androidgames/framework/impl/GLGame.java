@@ -58,7 +58,8 @@ public abstract class GLGame extends Activity implements Game, Renderer {
         wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame");        
     }
     
-    public void onResume() {
+    @Override
+	public void onResume() {
         super.onResume();
         glView.onResume();
         wakeLock.acquire();

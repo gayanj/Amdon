@@ -6,9 +6,9 @@ import java.util.List;
 import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Vector2;
 
-public class World {
+public class World{
 	public interface WorldListener {
-		// public void jump();
+		//public void jump();
 	}
 
 	public static final float WORLD_WIDTH = 9.6f;
@@ -19,7 +19,7 @@ public class World {
 
 	public final AmdonHimself amdon;
 	public final List<Ground> grounds;
-	// public final Ground ground;
+	//public final Ground ground;
 	public final WorldListener listener;
 	public float distanceSoFar;
 	public int score;
@@ -30,9 +30,7 @@ public class World {
 	public World(WorldListener listener) {
 		this.amdon = new AmdonHimself(1, 4f);
 		this.grounds = new ArrayList<Ground>();
-		Ground ground = new Ground(groundX, groundY);
-		this.grounds.add(ground);
-		this.generateGround();
+		//this.ground = new Ground(4.8f, 0.8f);
 		this.listener = listener;
 		this.distanceSoFar = 0;
 		this.score = 0;
@@ -41,29 +39,18 @@ public class World {
 
 	public void generateGround() {
 		groundX += 9.6f;
-		Ground ground = new Ground(groundX, groundY);
+		Ground ground =  new Ground(groundX, groundY);
 		this.grounds.add(ground);
 	}
-
-	public void update(float deltaTime, boolean isTouched) {
-		updateAmdon(deltaTime, isTouched);
-		updateGrounds();
+	
+	public void update(float deltaTime, boolean isTouched){
+		updateAmdon(deltaTime,isTouched);
 		checkCollisions(isTouched);
-		// checkGameOver();
+		//checkGameOver();
 	}
 
-	private void updateGrounds() {
-		int len = grounds.size();
-		if (len > 1) {
-			if (amdon.position.x > groundX) {
-				grounds.remove(0);
-				len = grounds.size();
-			}
-		}
-	}
-
-	private void updateAmdon(float deltaTime, boolean isTouched) {
-		amdon.update(deltaTime, isTouched);
+	private void updateAmdon(float deltaTime,boolean isTouched) {
+		amdon.update(deltaTime,isTouched);
 		distanceSoFar = Math.max(amdon.position.y, distanceSoFar);
 	}
 
@@ -72,21 +59,10 @@ public class World {
 	}
 
 	private void checkGroundCollisions(boolean isTouched) {
-		int len = grounds.size();
-		Ground ground = grounds.get(0);
-		int groundIndex;
-		for (int i = 0; i < len; i++) {
-			ground = grounds.get(i);
-			if (OverlapTester.overlapRectangles(ground.bounds, amdon.bounds)) {
-				break;
-			}
-		}
-		// for (int i = 0; i < len; i++) {
-		if (OverlapTester.overlapRectangles(ground.bounds, amdon.bounds)) {
+		if (OverlapTester.overlapRectangles(amdon.bounds, ground.bounds)) {
 			amdon.hitGround(isTouched);
-		} else {
+		}else{
 			amdon.nonGrounded();
 		}
-		// }
 	}
 }

@@ -73,20 +73,13 @@ public class World {
 
 	private void checkGroundCollisions(boolean isTouched) {
 		int len = grounds.size();
-		Ground ground = grounds.get(0);
-		int groundIndex;
-		for (int i = 0; i < len; i++) {
-			ground = grounds.get(i);
+		//for (int i = 0; i < len; i++) {
+			Ground ground = grounds.get(0);
 			if (OverlapTester.overlapRectangles(ground.bounds, amdon.bounds)) {
-				break;
+				amdon.hitGround(isTouched);
+			} else {
+				amdon.nonGrounded();
 			}
-		}
-		// for (int i = 0; i < len; i++) {
-		if (OverlapTester.overlapRectangles(ground.bounds, amdon.bounds)) {
-			amdon.hitGround(isTouched);
-		} else {
-			amdon.nonGrounded();
-		}
-		// }
+		//}
 	}
 }

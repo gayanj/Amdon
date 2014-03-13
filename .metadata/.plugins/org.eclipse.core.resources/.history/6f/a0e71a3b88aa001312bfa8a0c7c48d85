@@ -54,9 +54,10 @@ public class World {
 
 	private void updateGrounds() {
 		int len = grounds.size();
-		if (len > 1) {
-			if (amdon.position.x > groundX) {
-				grounds.remove(0);
+		for (int i = 0; i < len; i++) {
+			Ground ground = grounds.get(i);
+			if (amdon.position.x > (groundX-4.8)) {
+				grounds.remove(ground);
 				len = grounds.size();
 			}
 		}
@@ -72,21 +73,10 @@ public class World {
 	}
 
 	private void checkGroundCollisions(boolean isTouched) {
-		int len = grounds.size();
-		Ground ground = grounds.get(0);
-		int groundIndex;
-		for (int i = 0; i < len; i++) {
-			ground = grounds.get(i);
-			if (OverlapTester.overlapRectangles(ground.bounds, amdon.bounds)) {
-				break;
-			}
-		}
-		// for (int i = 0; i < len; i++) {
-		if (OverlapTester.overlapRectangles(ground.bounds, amdon.bounds)) {
+		if (OverlapTester.overlapRectangles(amdon.bounds, ground.bounds)) {
 			amdon.hitGround(isTouched);
 		} else {
 			amdon.nonGrounded();
 		}
-		// }
 	}
 }

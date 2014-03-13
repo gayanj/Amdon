@@ -16,22 +16,23 @@ public class AmdonHimself extends DynamicGameObject {
 
 	public AmdonHimself(float x, float y) {
 		super(x, y, AMDON_WIDTH, AMDON_HEIGHT);
-		state = AMDON_STATE_GROUNDED;
+		state = AMDON_STATE_FALL;
 		this.velocity.x = AMDON_MOVE_VELOCITY;
+		this.velocity.y = 0.1f;
 		stateTime = 0;
 	}
 
 	public void update(float deltaTime, boolean isTouched) {
-		// if (state == AMDON_STATE_GROUNDED) {
-		// position.add(velocity.x * deltaTime, 0);
-		// } else {
-		position.add(velocity.x * deltaTime, velocity.y * deltaTime);
-		// }
-		velocity.add(World.gravity.x * deltaTime, World.gravity.y * deltaTime);
-		// position.add(velocity.x * deltaTime, velocity.y * deltaTime);
 		if (isTouched && state == AMDON_STATE_GROUNDED) {
 			jump();
 		}
+		if(state == AMDON_STATE_GROUNDED){
+			velocity.y = 0;
+		}
+		position.add(velocity.x * deltaTime, velocity.y * deltaTime);
+
+		velocity.add(World.gravity.x * deltaTime, World.gravity.y * deltaTime);
+
 		bounds.lowerLeft.set(position).sub(bounds.width / 2, bounds.height / 2);
 		if (velocity.y > 0 && state != AMDON_STATE_GROUNDED) {
 			if (state != AMDON_STATE_JUMP) {

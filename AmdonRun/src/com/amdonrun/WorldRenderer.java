@@ -51,24 +51,22 @@ public class WorldRenderer {
 	private void renderAmdon() {
 		TextureRegion amdonFrame;
 		amdonFrame = Assets.amdon;
+		if (world.amdon.velocity.y == 0) {
+			 world.amdon.position.y = 2.6f;
+		}
 		batcher.drawSprite(world.amdon.position.x, world.amdon.position.y, 1,
 				2, amdonFrame);
 	}
 
 	private void renderGround() {
-		//Ground ground = world.ground;
-//		batcher.drawSprite(ground.position.x, ground.position.y, 9.6f, 1.6f,
-//				Assets.groundRegion);
-//		batcher.drawSprite(ground.position.x + 9.6f, ground.position.y, 9.6f,
-//				1.6f, Assets.groundRegion);
 		int len = world.grounds.size();
 		for (int i = 0; i < len; i++) {
 			Ground ground = world.grounds.get(i);
 			if (world.amdon.position.x > world.groundX) {
 				world.generateGround();
 			}
-			batcher.drawSprite(ground.position.x, ground.position.y, 9.6f, 1.6f,
-					Assets.groundRegion);
+			batcher.drawSprite(ground.position.x, ground.position.y, 9.6f,
+					1.6f, Assets.groundRegion);
 		}
 	}
 }
